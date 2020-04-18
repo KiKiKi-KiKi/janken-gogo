@@ -15,6 +15,7 @@
     "cleanup": "rimraf build"
   },
   "dependencies": {
+    "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1"
@@ -36,6 +37,7 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.19.0",
+    "node-sass": "^4.13.1",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2"
   }
