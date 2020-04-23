@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { HANDS } from './congig';
-import { match } from './game'
+import { gameMatch, getResultLabel } from './game';
 import Rival from './Rival';
 import Controller from './components/Controller';
 
@@ -14,7 +14,12 @@ function getRivalsValues(rivals) {
 const PLAYER_ID = 'PLAYER_1';
 
 export default function App() {
+  const [result, setResult] = useState();
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
+
+  const updateResult = useCallback((res) => {
+    setResult(getResultLabel(res));
+  }, []);
 
   const onMatch = useCallback(
     (myRoll) => (e) => {
@@ -28,6 +33,7 @@ export default function App() {
       console.log(resultData);
       const result = gameMatch(resultData, player);
       console.log(result);
+      updateResult(result);
     },
     [rivals]
   );
@@ -45,12 +51,13 @@ export default function App() {
       console.log(rivals);
       return rivals;
     });
-  }
+  };
 
   return (
     <>
       <Controller onStone={onStone} onScissors={onScissors} onPaper={onPaper} />
       <button onClick={() => onAddRival()}>ADD Rival</button>
+      <label>Result: {result}</label>
     </>
   );
 }
