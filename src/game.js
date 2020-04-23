@@ -83,4 +83,13 @@ export const gameMatch = (data, player) => {
 
   return isWin(resData)(player.name) ? 1 : -1;
 };
+
+const RESULT_LABELS = Object.freeze({
+  '-1': 'LOSE',
+  '0': 'DRAW',
+  '1': 'WIN',
+})
+
+export const getResultLabel = (result) => {
+  return RESULT_LABELS[result.toString()];
 }
