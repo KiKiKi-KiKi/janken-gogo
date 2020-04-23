@@ -9,3 +9,11 @@ export const HANDS_ID = Object.freeze({
   [HANDS[1]]: 1,
   [HANDS[2]]: 2,
 });
+
+export const DEFAULT_GAME = Object.freeze({
+  score: FIRST_VALUE,
+  match: 0,
+  win: 0,
+  lose: 0,
+  draw: 0,
+});

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { HANDS, FIRST_VALUE, GAME_COST } from './congig';
+import { HANDS, DEFAULT_GAME, GAME_COST } from './congig';
 import { gameMatch, getResultLabel, getAddScore, vaildGameOver } from './game';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
@@ -25,25 +25,26 @@ export default function App() {
   const [gameStart, setGameStart] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [game, setGame] = useState({
-    score: FIRST_VALUE,
-    match: 0,
-    win: 0,
-    lose: 0,
-    draw: 0,
-  });
+  const [game, setGame] = useState({ ...DEFAULT_GAME });
   const [betCost, setBetCost] = useState(0);
   const [myRoll, setMyRoll] = useState('');
   const [result, setResult] = useState();
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
   const onPlay = useCallback(() => {
-    setGameStart(true);
     setBetCost(() => {
       return GAME_COST;
     });
     setIsPlay((_val) => !_val);
   }, []);
+
+  const onGameReset = useCallback(() => {
+    setGameStart(true);
+    setIsGameOver(false);
+    setGame({ ...DEFAULT_GAME })
+    setBetCost(0);
+    onPlay();
+  }, [onPlay]);
 
   const checkGameOver = useCallback((game) => {
     setIsGameOver(() => {
@@ -123,7 +124,8 @@ export default function App() {
     return <RivalRobot key={data.name} name={data.name} result={data.result} />;
   });
 
-  const StartCover = () => (!gameStart ? <GameIntroCover onPlay={onPlay} /> : null);
+  const StartCover = () => (!gameStart ? <GameIntroCover onPlay={onGameReset} /> : null);
+  const GameOver = () => (isGameOver ? <GameOverCover onPlay={onGameReset} {...game} /> : null);
 
   return (
     <>
