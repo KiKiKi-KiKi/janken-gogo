@@ -17,9 +17,7 @@ export default function RivalRobot({ name, result }) {
   const hand = Hand(result);
   return (
     <div className="rival">
-      <div className="rival-result">
-        {hand}
-      </div>
+      <div className="rival-result">{hand}</div>
       <p className="rival-name">{name}</p>
     </div>
   );

@@ -9,7 +9,9 @@ export default function Header({ match, score, bet }) {
         <label className="game-meta--value match">{match}</label>
       </div>
       <span className="game-meta__item">
-        <span className="game-meta--label"><IconCoins /></span>
+        <span className="game-meta--label">
+          <IconCoins />
+        </span>
         <label className="game-meta--value score">{score}</label>
       </span>
       <span className="game-meta__item">

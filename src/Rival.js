@@ -51,7 +51,7 @@ const updateRate = (rate) => (pickKey) => {
   }
 
   return { ...rate, [upKey]: upRate, [pickKey]: downRate };
-}
+};
 
 // Rai
 export default function Rival(_name) {
@@ -59,7 +59,7 @@ export default function Rival(_name) {
   const rateRef = { current: DEFAULT_RATE };
 
   const getRate = () => rateRef.current;
-  const setRate = (rate) => rateRef.current = rate;
+  const setRate = (rate) => (rateRef.current = rate);
 
   const getRoll = () => {
     const rate = getRate();
