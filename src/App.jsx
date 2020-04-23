@@ -24,9 +24,21 @@ export default function App() {
   const onScissors = useCallback(onMatch(HANDS[1]), [onMatch]);
   const onPaper = useCallback(onMatch(HANDS[2]), [onMatch]);
 
+  const onAddRival = () => {
+    setRivals((_rivals) => {
+      const rivals = [..._rivals];
+      const newRival = new Rival(rivals.length);
+      console.log(newRival);
+      rivals.push(newRival);
+      console.log(rivals);
+      return rivals;
+    });
+  }
+
   return (
     <>
       <Controller onStone={onStone} onScissors={onScissors} onPaper={onPaper} />
+      <button onClick={() => onAddRival()}>ADD Rival</button>
     </>
   );
 }
