@@ -4,18 +4,29 @@ import Rival from './Rival';
 import Controller from './components/Controller';
 
 function getRivalsValues(rivals) {
-  return rivals.map((raival) => raival.getRoll());
+  return rivals.map((raival) => (
+    {
+      name: raival.name,
+      value: raival.getRoll(),
+    }
+  ));
 }
 
+const PLAYER_ID = 'PLAYER_1';
+
 export default function App() {
-  const [rivals, setRivals] = useState([new Rival(0)]);
+  const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
   const onMatch = useCallback(
     (myRoll) => (e) => {
       e.preventDefault();
       e.stopPropagation();
-      const values = [myRoll, ...getRivalsValues(rivals)];
-      console.log(values);
+      const player = {
+        name: PLAYER_ID,
+        value: myRoll
+      };
+      const result = [player, ...getRivalsValues(rivals)];
+      console.log(result);
     },
     [rivals]
   );
@@ -27,7 +38,7 @@ export default function App() {
   const onAddRival = () => {
     setRivals((_rivals) => {
       const rivals = [..._rivals];
-      const newRival = new Rival(rivals.length);
+      const newRival = new Rival(`CPU_${rivals.length + 1}`);
       console.log(newRival);
       rivals.push(newRival);
       console.log(rivals);
