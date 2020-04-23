@@ -1,4 +1,15 @@
 .app {
+  position: relative;
   margin: 0 auto;
-  padding: 1em;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.main {
+  position: relative;
+  padding: 1rem 1rem 2rem;
+}
+
+.footer {
+  border-top: 1px solid #eee;
 }

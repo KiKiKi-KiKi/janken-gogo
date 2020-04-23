@@ -4,8 +4,21 @@ $sanserif: system-ui, -apple-system, blinkmacsystemfont, avenir,
 
 $monospace: 'Source Code Pro', SFMono-Regular, monospace;
 
+$breakpoints: (
+  sm: 35.5em,
+  md: 48em,
+  lg: 64em,
+  xl: 80em,
+);
+
+@function breakpoint($key: sm) {
+  @return map-get($breakpoints, $key);
+}
+
 // Typography
 $font-base-color: #2e2927;
+
+$small: 93%;
 
 // btn color
 $btn-colors: (
@@ -40,3 +53,5 @@ $btn-colors: (
     active: #b21f2d,
   ),
 );
+
+$theme-dark: #212529;

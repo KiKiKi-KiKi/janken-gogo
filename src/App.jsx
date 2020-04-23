@@ -4,6 +4,8 @@ import { gameMatch, getResultLabel, getAddScore } from './game';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
+import Header from './components/Header';
+import GameMeta from './components/GameMeta';
 import PlayBtn from './components/PlayBtn';
 
 function getRivalsValues(rivals) {
@@ -102,24 +104,28 @@ export default function App() {
   };
 
   const rivalRobots = rivals.map((data) => {
-    return <RivalRobot key={data.name} name={data.name} result={data.result} />
-  })
+    return <RivalRobot key={data.name} name={data.name} result={data.result} />;
+  });
 
   return (
     <>
-      <div className="rivals">
-        {rivalRobots}
-      </div>
-      <label>Result: {result}</label>
-      <Controller
-        isPlay={isPlay}
-        current={myRoll.toLowerCase()}
-        onStone={onStone}
-        onScissors={onScissors}
-        onPaper={onPaper}
-      />
-      <PlayBtn onPlay={onPlay} />
-      <button onClick={() => onAddRival()}>ADD Rival</button>
+      <Header bet={betCost} {...game} />
+      <main className="main">
+        <div className="rivals">{rivalRobots}</div>
+        <label>Result: {result}</label>
+        <Controller
+          isPlay={isPlay}
+          current={myRoll.toLowerCase()}
+          onStone={onStone}
+          onScissors={onScissors}
+          onPaper={onPaper}
+        />
+        <PlayBtn onPlay={onPlay} />
+        <button onClick={() => onAddRival()}>ADD Rival</button>
+      </main>
+      <footer className="footer">
+        <GameMeta {...game} />
+      </footer>
     </>
   );
 }
