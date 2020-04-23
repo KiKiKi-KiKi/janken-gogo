@@ -5,12 +5,10 @@ import Rival from './Rival';
 import Controller from './components/Controller';
 
 function getRivalsValues(rivals) {
-  return rivals.map((raival) => (
-    {
-      name: raival.name,
-      value: raival.getRoll(),
-    }
-  ));
+  return rivals.map((raival) => ({
+    name: raival.name,
+    value: raival.getRoll(),
+  }));
 }
 
 const PLAYER_ID = 'PLAYER_1';
@@ -24,11 +22,12 @@ export default function App() {
       e.stopPropagation();
       const player = {
         name: PLAYER_ID,
-        value: myRoll
+        value: myRoll,
       };
-      const result = [player, ...getRivalsValues(rivals)];
+      const resultData = [player, ...getRivalsValues(rivals)];
+      console.log(resultData);
+      const result = gameMatch(resultData, player);
       console.log(result);
-      gameMatch(result);
     },
     [rivals]
   );
