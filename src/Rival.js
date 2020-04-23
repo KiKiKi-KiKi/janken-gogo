@@ -37,18 +37,6 @@ export default function Raival(_name) {
     },
   };
 
-  const result = {
-    current: null,
-  };
-
-  const getResult = () => {
-    return result.current;
-  }
-
-  const setResult = (val) => {
-    result.current = val
-  }
-
   const getRate = () => rateRef.current;
 
   const getRoll = () => {
@@ -57,9 +45,6 @@ export default function Raival(_name) {
     const pick = Math.floor(Math.random() * total);
     const pickKey = getPickKey(rate)(pick);
     console.log(name, total, pick, pickKey);
-
-    // set result
-    setResult(pickKey);
 
     // TODO: change rate
 
@@ -70,7 +55,5 @@ export default function Raival(_name) {
   return {
     name,
     getRoll,
-    getResult,
-    setResult,
   };
 }

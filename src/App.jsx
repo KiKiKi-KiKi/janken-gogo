@@ -12,6 +12,10 @@ function getRivalsValues(rivals) {
   }));
 }
 
+const getResultByName = (res) => (name) => {
+  return res.find((data) => data.name === name);
+}
+
 const PLAYER_ID = 'PLAYER_1';
 
 export default function App() {
@@ -22,6 +26,12 @@ export default function App() {
     setResult(getResultLabel(res));
   }, []);
 
+  const updateRivalsData = useCallback((rivals, res) => {
+    return rivals.map((data) => {
+      return { ...data, result: getResultByName(res)(data.name).value };
+    })
+  }, []);
+
   const onMatch = useCallback(
     (myRoll) => (e) => {
       e.preventDefault();
@@ -30,10 +40,14 @@ export default function App() {
         name: PLAYER_ID,
         value: myRoll,
       };
-      const resultData = [player, ...getRivalsValues(rivals)];
+      const rivalsResult = getRivalsValues(rivals);
+      const resultData = [player, ...rivalsResult];
       console.log(resultData);
+
       const result = gameMatch(resultData, player);
-      console.log(result);
+      console.log('Result >', result);
+
+      setRivals(updateRivalsData(rivals, rivalsResult));
       updateResult(result);
     },
     [rivals]
@@ -55,7 +69,7 @@ export default function App() {
   };
 
   const rivalRobots = rivals.map((data) => {
-    return <RivalRobot key={data.name} name={data.name} result={data.getResult()} />
+    return <RivalRobot key={data.name} name={data.name} result={data.result} />
   })
 
   return (
