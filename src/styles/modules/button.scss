@@ -1,4 +1,42 @@
-@mixin btn-color($key: default) {
+@mixin btn-setting($key: default) {
+  $color: map-get($btn-colors, $key);
+  background-color: map-get($color, base);
+  &:hover {
+    background-color: map-get($color, hover);
+  }
+}
+
+.btn {
+  display: inline-block;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 1.5;
+  white-space: nowrap;
+  user-select: none;
+  padding: .375rem .75rem;
+  background-color: transparent;
+  border: 0;
+  border-radius: .25rem;
+  transition: .15s background-color ease-in-out;
+  outline: none;
+
+  @include btn-setting(default);
+}
+
+.play-btn {
+  @include btn-setting(success);
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  margin: 0 auto;
+  padding: .5rem 1.5rem;
+  max-width: 260px;
+  width: 100%;
+}
+
+@mixin controll-btn-setting($key: default) {
   $color: map-get($btn-colors, $key);
   color: #fff;
   background-color: map-get($color, base);
@@ -7,7 +45,7 @@
     background-color: map-get($color, hover);
   }
   &:active,
-  &.current {
+  &.current{
     top: 3px;
     background-color: map-get($color, hover) - 30;
     box-shadow: 0 1px 0 map-get($color, active);
@@ -15,30 +53,27 @@
 }
 
 .controll-btn {
+  @extend .btn;
   position: relative;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  white-space: nowrap;
-  user-select: none;
+  line-height: 1;
   padding: 1em;
   margin-bottom: 4px;
-  background-color: transparent;
-  border: 0;
   border-radius: 50%;
-  transition: .15s background-color ease-in-out;
-  outline: none;
+
+  &.disabled {
+    cursor: not-allowed;
+    filter: contrast(50%);
+  }
 }
 
 .controll-btn--stone {
-  @include btn-color(primary);
+  @include controll-btn-setting(primary);
 }
 
 .controll-btn--scissors {
-  @include btn-color(warning);
+  @include controll-btn-setting(warning);
 }
 .controll-btn--paper {
-  @include btn-color(danger);
+  @include controll-btn-setting(danger);
 }
 

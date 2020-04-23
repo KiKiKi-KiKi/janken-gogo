@@ -4,6 +4,7 @@ import { gameMatch, getResultLabel } from './game';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
+import PlayBtn from './components/PlayBtn';
 
 function getRivalsValues(rivals) {
   return rivals.map((raival) => ({
@@ -19,9 +20,14 @@ const getResultByName = (res) => (name) => {
 const PLAYER_ID = 'PLAYER_1';
 
 export default function App() {
+  const [isPlay, setIsPlay] = useState(false);
   const [myRoll, setMyRoll] = useState('');
   const [result, setResult] = useState();
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
+
+  const onPlay = useCallback(() => {
+    setIsPlay((_val) => !_val);
+  }, []);
 
   const updateResult = useCallback((res) => {
     setResult(getResultLabel(res));
@@ -37,6 +43,10 @@ export default function App() {
     (myResult) => (e) => {
       e.preventDefault();
       e.stopPropagation();
+
+      if (!isPlay) {
+        return false;
+      }
 
       const player = {
         name: PLAYER_ID,
@@ -54,7 +64,7 @@ export default function App() {
       setRivals(updateRivalsData(rivals, rivalsResult));
       updateResult(result);
     },
-    [rivals]
+    [rivals, isPlay]
   );
 
   const onStone = useCallback(onMatch(HANDS[0]), [onMatch]);
@@ -82,7 +92,14 @@ export default function App() {
         {rivalRobots}
       </div>
       <label>Result: {result}</label>
-      <Controller current={myRoll.toLowerCase()} onStone={onStone} onScissors={onScissors} onPaper={onPaper} />
+      <Controller
+        isPlay={isPlay}
+        current={myRoll.toLowerCase()}
+        onStone={onStone}
+        onScissors={onScissors}
+        onPaper={onPaper}
+      />
+      <PlayBtn onPlay={onPlay} />
       <button onClick={() => onAddRival()}>ADD Rival</button>
     </>
   );
