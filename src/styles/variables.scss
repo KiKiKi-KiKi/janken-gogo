@@ -12,25 +12,31 @@ $btn-colors: (
   defaiut: (
     base: #6c757d,
     hover: #5a6268,
+    active: #4e555b,
   ),
   primary: (
     base: #007bff,
     hover: #0069d9,
+    active: #005cbf,
   ),
   info: (
     base: #17a2b8,
     hover: #138496,
+    active: #10707f,
   ),
   success: (
     base: #28a745,
     hover: #218838,
+    active: #1c7430,
   ),
   warning: (
     base: #ffc107,
     hover: #e0a800,
+    active: #c69500,
   ),
   danger: (
-    base: #c82333,
+    base: #dc3545,
     hover: #c82333,
+    active: #b21f2d,
   ),
 );
