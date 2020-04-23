@@ -25,6 +25,30 @@ export const isDraw = (data) => (max) => {
   return false;
 };
 
+const janken = (hand1) => (hand2) => {
+  switch (hand1) {
+    case HANDS[0]: // STONE
+      return hand2 === HANDS[1];
+    case HANDS[1]: // SCISSORS
+      return hand2 === HANDS[2];
+    case HANDS[2]: // PAPER
+      return hand2 === HANDS[0];
+  }
+};
+
+// return Array
+const getWinnersList = ([first, second]) => {
+  const [hand1, member1] = first;
+  const [hand2, member2] = second;
+  return janken(hand1)(hand2) ? member1 : member2;
+}
+
+export const isWin = (data) => (playerName) => {
+  const winner = getWinnersList(data);
+  console.log('Winner:', winner);
+  return winner.includes(playerName);
+};
+
 /*
 [
   hands,   // HANDS PATTERN,
@@ -56,4 +80,7 @@ export const gameMatch = (data, player) => {
   if (isDraw(resData)(HANDS.length)) {
     return 0;
   }
+
+  return isWin(resData)(player.name) ? 1 : -1;
+};
 }
