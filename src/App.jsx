@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
-import { HANDS } from './congig';
-import { gameMatch, getResultLabel } from './game';
+import { HANDS, FIRST_VALUE, GAME_COST } from './congig';
+import { gameMatch, getResultLabel, getAddScore } from './game';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
@@ -15,28 +15,47 @@ function getRivalsValues(rivals) {
 
 const getResultByName = (res) => (name) => {
   return res.find((data) => data.name === name);
-}
+};
 
 const PLAYER_ID = 'PLAYER_1';
 
 export default function App() {
+  const [game, setGame] = useState({
+    score: FIRST_VALUE,
+    match: 0,
+    win: 0,
+    lose: 0,
+    draw: 0,
+  });
+  const [betCost, setBetCost] = useState(0);
   const [isPlay, setIsPlay] = useState(false);
   const [myRoll, setMyRoll] = useState('');
   const [result, setResult] = useState();
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
   const onPlay = useCallback(() => {
+    setBetCost(() => {
+      return GAME_COST;
+    });
     setIsPlay((_val) => !_val);
   }, []);
 
-  const updateResult = useCallback((res) => {
-    setResult(getResultLabel(res));
+  const updateResult = useCallback((res, bet) => {
+    const resLabel = getResultLabel(res);
+    const addScore = getAddScore(res)(bet);
+
+    setGame(({ score, match, ...data }) => {
+      const count = data[resLabel] + 1;
+      return { ...data, score: score + addScore, [resLabel]: count, match: match + 1 };
+    });
+
+    setResult(resLabel.toUpperCase());
   }, []);
 
   const updateRivalsData = useCallback((rivals, res) => {
     return rivals.map((data) => {
       return { ...data, result: getResultByName(res)(data.name).value };
-    })
+    });
   }, []);
 
   const onMatch = useCallback(
@@ -62,7 +81,7 @@ export default function App() {
 
       setMyRoll(myResult);
       setRivals(updateRivalsData(rivals, rivalsResult));
-      updateResult(result);
+      updateResult(result, betCost);
     },
     [rivals, isPlay]
   );

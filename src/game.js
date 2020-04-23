@@ -1,4 +1,4 @@
-import { HANDS, HANDS_ID } from './congig';
+import { HANDS, HANDS_ID, GAME_COST } from './congig';
 
 const isAllSameValue = (arr) => {
   return arr.length === 1;
@@ -85,11 +85,23 @@ export const gameMatch = (data, player) => {
 };
 
 const RESULT_LABELS = Object.freeze({
-  '-1': 'LOSE',
-  '0': 'DRAW',
-  '1': 'WIN',
-})
+  '-1': 'lose',
+  '0': 'draw',
+  '1': 'win',
+});
 
 export const getResultLabel = (result) => {
   return RESULT_LABELS[result.toString()];
-}
+};
+
+export const getAddScore = (res) => (bet) => {
+  if (res < 0) {
+    return -bet;
+  }
+
+  if (res === 0) {
+    return -(bet / 2);
+  }
+
+  return bet * 2 - bet;
+};
