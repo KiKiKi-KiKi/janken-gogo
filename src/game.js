@@ -33,6 +33,8 @@ const janken = (hand1) => (hand2) => {
       return hand2 === HANDS[2];
     case HANDS[2]: // PAPER
       return hand2 === HANDS[0];
+    default:
+      throw new Error('ERROR JANKEN!');
   }
 };
 
@@ -41,7 +43,7 @@ const getWinnersList = ([first, second]) => {
   const [hand1, member1] = first;
   const [hand2, member2] = second;
   return janken(hand1)(hand2) ? member1 : member2;
-}
+};
 
 export const isWin = (data) => (playerName) => {
   const winner = getWinnersList(data);
@@ -59,10 +61,7 @@ const mapPlayersToHandPattern = (ids) => (data) => {
   return data
     .reduce((arr, player) => {
       if (!arr[ids[player.value]]) {
-        arr[ids[player.value]] = [
-          player.value,
-          [],
-        ];
+        arr[ids[player.value]] = [player.value, []];
       }
       arr[ids[player.value]][1].push(player.name);
       return [...arr];
@@ -96,14 +95,14 @@ export const getResultLabel = (result) => {
 
 export const getAddScore = (res) => (bet) => {
   if (res < 0) {
-    return -bet;
+    return 0;
   }
 
   if (res === 0) {
-    return -(bet / 2);
+    return bet / 2;
   }
 
-  return bet * 2 - bet;
+  return bet * 2;
 };
 
 export const vaildGameOver = (gameData) => {
@@ -113,4 +112,4 @@ export const vaildGameOver = (gameData) => {
   }
 
   return false;
-}
+};

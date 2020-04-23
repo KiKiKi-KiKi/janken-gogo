@@ -43,6 +43,19 @@
   color: $theme-dark;
 }
 
+.next-btn {
+  @include btn-setting(default);
+}
+
+.get-reward-btn {
+  @include btn-setting(info);
+}
+
+.bet-all-btn {
+  @include btn-setting(danger);
+}
+
+
 @mixin controll-btn-setting($key: default) {
   $color: map-get($btn-colors, $key);
   color: #fff;

@@ -8,6 +8,7 @@ import Header from './components/Header';
 import GameMeta from './components/GameMeta';
 import GameIntroCover from './components/GameIntroCover';
 import GameOverCover from './components/GameOverCover';
+import GameNextCover from './components/GameNextCover';
 
 function getRivalsValues(rivals) {
   return rivals.map((raival) => ({
@@ -29,15 +30,22 @@ export default function App() {
   const [game, setGame] = useState({ ...DEFAULT_GAME });
   const [betCost, setBetCost] = useState(0);
   const [myRoll, setMyRoll] = useState('');
-  const [result, setResult] = useState();
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
-  const onPlay = useCallback(() => {
+  const onPlay = useCallback((betVal = GAME_COST) => {
     setMyRoll('');
     setBetCost(() => {
-      return GAME_COST;
+      return betVal;
+    });
+    setGame(({ score, ...gameData }) => {
+      return { ...gameData, score: score - betVal };
     });
     setIsPlay((_val) => !_val);
+  }, []);
+
+  const onPuseGame = useCallback(() => {
+    setIsPlay(false);
+    setBetCost(0);
   }, []);
 
   const onGameReset = useCallback(() => {
@@ -113,8 +121,10 @@ export default function App() {
       setMyRoll(myResult);
       setRivals(updateRivalsData(rivals, rivalsResult));
       updateResult(result, betCost);
+
+      onPuseGame();
     },
-    [rivals, isPlay]
+    [rivals, isPlay, betCost, onPuseGame, updateResult, updateRivalsData]
   );
 
   const onStone = useCallback(onMatch(HANDS[0]), [onMatch]);
@@ -144,13 +154,19 @@ export default function App() {
     return isGameOver ? <GameOverCover onPlay={onGameReset} {...game} /> : null;
   }, [isGameOver, onGameReset, game]);
 
+  const nextCover = useMemo(() => {
+    if (!isPlay && !isGameOver && gameStart) {
+      return <GameNextCover onPlay={onPlay} {...game} />;
+    } else {
+      return null;
+    }
+  }, [isPlay, isGameOver, gameStart, game, onPlay]);
 
   return (
     <>
       <Header bet={betCost} {...game} />
       <main className="main">
         <div className="rivals">{rivalRobots}</div>
-        <label>Result: {result}</label>
         <div className="main-actions">
           <Controller
             isPlay={gameStart}
@@ -160,8 +176,11 @@ export default function App() {
             onPaper={onPaper}
           />
         </div>
-        <button onClick={() => onAddRival()}>ADD Rival</button>
+        <button className="btn" onClick={() => onAddRival()}>
+          ADD Rival
+        </button>
         {startCover}
+        {nextCover}
       </main>
       <footer className="footer">
         <div className="game-meta">
