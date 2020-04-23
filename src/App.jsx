@@ -50,6 +50,7 @@ export default function App() {
 
   const onGameReset = useCallback(() => {
     setGameStart(true);
+    setIsPlay(false);
     setIsGameOver(false);
     setGame({ ...DEFAULT_GAME });
     onPlay();
