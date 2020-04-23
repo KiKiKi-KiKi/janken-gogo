@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { HANDS } from './congig';
+import { match } from './game'
 import Rival from './Rival';
 import Controller from './components/Controller';
 
@@ -27,6 +28,7 @@ export default function App() {
       };
       const result = [player, ...getRivalsValues(rivals)];
       console.log(result);
+      gameMatch(result);
     },
     [rivals]
   );
