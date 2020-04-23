@@ -19,6 +19,7 @@ const getResultByName = (res) => (name) => {
 const PLAYER_ID = 'PLAYER_1';
 
 export default function App() {
+  const [myRoll, setMyRoll] = useState('');
   const [result, setResult] = useState();
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
@@ -33,13 +34,15 @@ export default function App() {
   }, []);
 
   const onMatch = useCallback(
-    (myRoll) => (e) => {
+    (myResult) => (e) => {
       e.preventDefault();
       e.stopPropagation();
+
       const player = {
         name: PLAYER_ID,
-        value: myRoll,
+        value: myResult,
       };
+
       const rivalsResult = getRivalsValues(rivals);
       const resultData = [player, ...rivalsResult];
       console.log(resultData);
@@ -47,6 +50,7 @@ export default function App() {
       const result = gameMatch(resultData, player);
       console.log('Result >', result);
 
+      setMyRoll(myResult);
       setRivals(updateRivalsData(rivals, rivalsResult));
       updateResult(result);
     },
@@ -78,7 +82,7 @@ export default function App() {
         {rivalRobots}
       </div>
       <label>Result: {result}</label>
-      <Controller onStone={onStone} onScissors={onScissors} onPaper={onPaper} />
+      <Controller current={myRoll.toLowerCase()} onStone={onStone} onScissors={onScissors} onPaper={onPaper} />
       <button onClick={() => onAddRival()}>ADD Rival</button>
     </>
   );

@@ -1,23 +1,35 @@
 import React from 'react';
+import classNames from '@kikiki_kiki/class-names'
 import { IconPaper, IconScissors, IconStone } from './Icons';
 
-export default function Controller({ onStone, onScissors, onPaper }) {
+function Button({ id, current, onClick, children }) {
+  const cs = classNames(`controll-btn controll-btn--${id}`, {
+    current: id === current
+  });
+  return (
+    <button className={cs} onClick={onClick}>
+      {children}
+    </button>
+  )
+}
+
+export default function Controller({ current, onStone, onScissors, onPaper }) {
   return (
     <nav className="controller">
       <div className="controll-item">
-        <button className="controll-btn controll-btn--stone" onClick={onStone}>
+        <Button id="stone" current={current} onClick={onStone}>
           <IconStone />
-        </button>
+        </Button>
       </div>
       <div className="controll-item">
-        <button className="controll-btn controll-btn--scissors" onClick={onScissors}>
+        <Button id="scissors" current={current} onClick={onScissors}>
           <IconScissors />
-        </button>
+        </Button>
       </div>
       <div className="controll-item">
-        <button className="controll-btn controll-btn--paper" onClick={onPaper}>
+        <Button id="paper" current={current} onClick={onPaper}>
           <IconPaper />
-        </button>
+        </Button>
       </div>
     </nav>
   );
