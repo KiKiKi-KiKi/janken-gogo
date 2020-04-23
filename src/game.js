@@ -1,7 +1,11 @@
-import { HANDS_ID } from './congig';
+import { HANDS, HANDS_ID } from './congig';
 
 const isAllSameValue = (arr) => {
   return arr.length === 1;
+}
+
+const isArrayLengthMax = (arr) => (values) => {
+  return arr.length === values.length;
 }
 
 // All same value || Has All Values => DRAW
@@ -18,6 +22,13 @@ export const isDraw = (data) => {
 
   if (isAllSameValue(values)) {
     console.log('Draw! All same value.');
+    return true;
+  }
+
+  const hasAllHands = isArrayLengthMax(HANDS);
+
+  if (hasAllHands(values)) {
+    console.log('Draw! Has All Hands.');
     return true;
   }
 
