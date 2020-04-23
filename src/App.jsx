@@ -32,6 +32,7 @@ export default function App() {
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
   const onPlay = useCallback(() => {
+    setMyRoll('');
     setBetCost(() => {
       return GAME_COST;
     });
