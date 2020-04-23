@@ -1,0 +1,41 @@
+.rivals {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 -1rem;
+}
+
+.rival {
+  position: relative;
+  margin: 0 .5rem 1rem;
+  padding: 1rem 1rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: .25rem;
+  max-width: 25%;
+}
+
+.rival-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #28a745 + 50;
+  font-size: 4rem;
+  padding: 1rem;
+  border-radius: 50%;
+  background: $font-base-color;
+  width: 4rem;
+  height: 4rem;
+  box-sizing: initial;
+  .svg-inline--fa {
+    display: block;
+    line-height: 1;
+  }
+}
+
+.rival-name {
+  text-align: center;
+  margin: .5rem 0 0;
+}

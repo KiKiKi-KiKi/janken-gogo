@@ -34,8 +34,20 @@ export default function Raival(_name) {
       [HANDS[0]]: 33,
       [HANDS[1]]: 33,
       [HANDS[2]]: 33,
-    }
+    },
   };
+
+  const result = {
+    current: null,
+  };
+
+  const getResult = () => {
+    return result.current;
+  }
+
+  const setResult = (val) => {
+    result.current = val
+  }
 
   const getRate = () => rateRef.current;
 
@@ -44,17 +56,21 @@ export default function Raival(_name) {
     const total = getTotal(rate);
     const pick = Math.floor(Math.random() * total);
     const pickKey = getPickKey(rate)(pick);
-    console.log(total, pick, pickKey);
+    console.log(name, total, pick, pickKey);
+
+    // set result
+    setResult(pickKey);
 
     // TODO: change rate
+
 
     return pickKey;
   };
 
-  getRoll();
-
   return {
     name,
     getRoll,
+    getResult,
+    setResult,
   };
 }

@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { HANDS } from './congig';
 import { gameMatch, getResultLabel } from './game';
 import Rival from './Rival';
+import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
 
 function getRivalsValues(rivals) {
@@ -53,11 +54,18 @@ export default function App() {
     });
   };
 
+  const rivalRobots = rivals.map((data) => {
+    return <RivalRobot key={data.name} name={data.name} result={data.getResult()} />
+  })
+
   return (
     <>
+      <div className="rivals">
+        {rivalRobots}
+      </div>
+      <label>Result: {result}</label>
       <Controller onStone={onStone} onScissors={onScissors} onPaper={onPaper} />
       <button onClick={() => onAddRival()}>ADD Rival</button>
-      <label>Result: {result}</label>
     </>
   );
 }
