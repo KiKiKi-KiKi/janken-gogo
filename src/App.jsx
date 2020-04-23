@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { HANDS, DEFAULT_GAME, GAME_COST } from './congig';
 import { gameMatch, getResultLabel, getAddScore, vaildGameOver } from './game';
 import Rival from './Rival';
@@ -7,6 +7,7 @@ import Controller from './components/Controller';
 import Header from './components/Header';
 import GameMeta from './components/GameMeta';
 import GameIntroCover from './components/GameIntroCover';
+import GameOverCover from './components/GameOverCover';
 
 function getRivalsValues(rivals) {
   return rivals.map((raival) => ({
@@ -42,35 +43,45 @@ export default function App() {
   const onGameReset = useCallback(() => {
     setGameStart(true);
     setIsGameOver(false);
-    setGame({ ...DEFAULT_GAME })
-    setBetCost(0);
+    setGame({ ...DEFAULT_GAME });
     onPlay();
   }, [onPlay]);
 
-  const checkGameOver = useCallback((game) => {
-    setIsGameOver(() => {
-      const isGameOver = vaildGameOver(game);
-      if (isGameOver) {
-        onPlay(false);
-      }
-      return isGameOver;
-    });
-  }, [vaildGameOver])
+  const checkGameOver = useCallback(
+    (game) => {
+      setIsGameOver(() => {
+        const isGameOver = vaildGameOver(game);
+        if (isGameOver) {
+          setBetCost(0);
+          onPlay(false);
+        }
+        return isGameOver;
+      });
+    },
+    [onPlay]
+  );
 
-  const updateResult = useCallback((res, bet) => {
-    const resLabel = getResultLabel(res);
-    const addScore = getAddScore(res)(bet);
+  const updateResult = useCallback(
+    (res, bet) => {
+      const resLabel = getResultLabel(res);
+      const addScore = getAddScore(res)(bet);
 
-    setGame(({ score, match, ...data }) => {
-      const count = data[resLabel] + 1;
-      const newGameData = { ...data, score: score + addScore, [resLabel]: count, match: match + 1 };
-      checkGameOver(newGameData);
-      return newGameData;
-    });
-
-    setResult(resLabel.toUpperCase());
-
-  }, []);
+      setGame(({ score, match, ...data }) => {
+        const count = data[resLabel] + 1;
+        const newGameData = {
+          ...data,
+          score: score + addScore,
+          [resLabel]: count,
+          match: match + 1,
+          addScore: addScore,
+          result: res,
+        };
+        checkGameOver(newGameData);
+        return newGameData;
+      });
+    },
+    [checkGameOver]
+  );
 
   const updateRivalsData = useCallback((rivals, res) => {
     return rivals.map((data) => {
@@ -125,8 +136,14 @@ export default function App() {
     return <RivalRobot key={data.name} name={data.name} result={data.result} />;
   });
 
-  const StartCover = () => (!gameStart ? <GameIntroCover onPlay={onGameReset} /> : null);
-  const GameOver = () => (isGameOver ? <GameOverCover onPlay={onGameReset} {...game} /> : null);
+  const startCover = useMemo(() => {
+    return !gameStart ? <GameIntroCover onPlay={onGameReset} /> : null;
+  }, [gameStart, onGameReset]);
+
+  const gameOver = useMemo(() => {
+    return isGameOver ? <GameOverCover onPlay={onGameReset} {...game} /> : null;
+  }, [isGameOver, onGameReset, game]);
+
 
   return (
     <>
@@ -136,7 +153,7 @@ export default function App() {
         <label>Result: {result}</label>
         <div className="main-actions">
           <Controller
-            isPlay={isPlay}
+            isPlay={gameStart}
             current={myRoll.toLowerCase()}
             onStone={onStone}
             onScissors={onScissors}
@@ -144,11 +161,14 @@ export default function App() {
           />
         </div>
         <button onClick={() => onAddRival()}>ADD Rival</button>
-        <StartCover />
+        {startCover}
       </main>
       <footer className="footer">
-        <GameMeta {...game} />
+        <div className="game-meta">
+          <GameMeta {...game} />
+        </div>
       </footer>
+      {gameOver}
     </>
   );
 }

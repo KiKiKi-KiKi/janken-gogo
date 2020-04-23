@@ -28,12 +28,19 @@
 .play-btn {
   @include btn-setting(success);
   display: block;
+  font-family: $titleFont;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .2rem;
   margin: 0 auto;
   padding: .5rem 1.5rem;
   max-width: 260px;
   width: 100%;
+}
+
+.restart-btn {
+  @include btn-setting(warning);
+  color: $theme-dark;
 }
 
 @mixin controll-btn-setting($key: default) {
