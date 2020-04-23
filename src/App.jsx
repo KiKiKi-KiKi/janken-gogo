@@ -6,7 +6,7 @@ import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
 import Header from './components/Header';
 import GameMeta from './components/GameMeta';
-import PlayBtn from './components/PlayBtn';
+import GameIntroCover from './components/GameIntroCover';
 
 function getRivalsValues(rivals) {
   return rivals.map((raival) => ({
@@ -22,6 +22,8 @@ const getResultByName = (res) => (name) => {
 const PLAYER_ID = 'PLAYER_1';
 
 export default function App() {
+  const [gameStart, setGameStart] = useState(false);
+  const [isPlay, setIsPlay] = useState(false);
   const [game, setGame] = useState({
     score: FIRST_VALUE,
     match: 0,
@@ -30,12 +32,12 @@ export default function App() {
     draw: 0,
   });
   const [betCost, setBetCost] = useState(0);
-  const [isPlay, setIsPlay] = useState(false);
   const [myRoll, setMyRoll] = useState('');
   const [result, setResult] = useState();
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
   const onPlay = useCallback(() => {
+    setGameStart(true);
     setBetCost(() => {
       return GAME_COST;
     });
@@ -107,21 +109,25 @@ export default function App() {
     return <RivalRobot key={data.name} name={data.name} result={data.result} />;
   });
 
+  const StartCover = () => (!gameStart ? <GameIntroCover onPlay={onPlay} /> : null);
+
   return (
     <>
       <Header bet={betCost} {...game} />
       <main className="main">
         <div className="rivals">{rivalRobots}</div>
         <label>Result: {result}</label>
-        <Controller
-          isPlay={isPlay}
-          current={myRoll.toLowerCase()}
-          onStone={onStone}
-          onScissors={onScissors}
-          onPaper={onPaper}
-        />
-        <PlayBtn onPlay={onPlay} />
+        <div className="main-actions">
+          <Controller
+            isPlay={isPlay}
+            current={myRoll.toLowerCase()}
+            onStone={onStone}
+            onScissors={onScissors}
+            onPaper={onPaper}
+          />
+        </div>
         <button onClick={() => onAddRival()}>ADD Rival</button>
+        <StartCover />
       </main>
       <footer className="footer">
         <GameMeta {...game} />

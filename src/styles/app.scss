@@ -2,14 +2,17 @@
 
 @import './variables';
 @import './common/base';
+@import './common/typography';
 
 // modules
 @import './modules/icon';
 @import './modules/button';
 
+// layouts
+@import './layouts/app-layout';
+
 // components
-@import './components/app';
 @import './components/game-meta';
 @import './components/controller';
 @import './components/rival';
-
+@import './components/intro';
