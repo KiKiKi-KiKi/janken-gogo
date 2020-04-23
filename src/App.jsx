@@ -49,6 +49,7 @@ export default function App() {
   }, []);
 
   const onGameReset = useCallback(() => {
+    // TODO: reset Rival Num
     setGameStart(true);
     setIsPlay(false);
     setIsGameOver(false);
@@ -177,6 +178,7 @@ export default function App() {
             onPaper={onPaper}
           />
         </div>
+        {/* TODO: rate up, when add Rival */}
         <button className="btn" onClick={() => onAddRival()}>
           ADD Rival
         </button>
