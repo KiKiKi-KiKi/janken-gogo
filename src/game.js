@@ -1,4 +1,4 @@
-import { HANDS, HANDS_ID, GAME_COST } from './congig';
+import { HANDS, HANDS_ID, MAX_MATCH } from './congig';
 
 const isAllSameValue = (arr) => {
   return arr.length === 1;
@@ -105,3 +105,12 @@ export const getAddScore = (res) => (bet) => {
 
   return bet * 2 - bet;
 };
+
+export const vaildGameOver = (gameData) => {
+  if (gameData.match >= MAX_MATCH || gameData.score <= 0) {
+    console.warn('GAME OVER!');
+    return true;
+  }
+
+  return false;
+}

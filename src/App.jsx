@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { HANDS, FIRST_VALUE, GAME_COST } from './congig';
-import { gameMatch, getResultLabel, getAddScore } from './game';
+import { gameMatch, getResultLabel, getAddScore, vaildGameOver } from './game';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
@@ -24,6 +24,7 @@ const PLAYER_ID = 'PLAYER_1';
 export default function App() {
   const [gameStart, setGameStart] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [game, setGame] = useState({
     score: FIRST_VALUE,
     match: 0,
@@ -44,16 +45,29 @@ export default function App() {
     setIsPlay((_val) => !_val);
   }, []);
 
+  const checkGameOver = useCallback((game) => {
+    setIsGameOver(() => {
+      const isGameOver = vaildGameOver(game);
+      if (isGameOver) {
+        onPlay(false);
+      }
+      return isGameOver;
+    });
+  }, [vaildGameOver])
+
   const updateResult = useCallback((res, bet) => {
     const resLabel = getResultLabel(res);
     const addScore = getAddScore(res)(bet);
 
     setGame(({ score, match, ...data }) => {
       const count = data[resLabel] + 1;
-      return { ...data, score: score + addScore, [resLabel]: count, match: match + 1 };
+      const newGameData = { ...data, score: score + addScore, [resLabel]: count, match: match + 1 };
+      checkGameOver(newGameData);
+      return newGameData;
     });
 
     setResult(resLabel.toUpperCase());
+
   }, []);
 
   const updateRivalsData = useCallback((rivals, res) => {
