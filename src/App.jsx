@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { HANDS, DEFAULT_GAME, GAME_COST, MAX_RIVAL } from './congig';
 import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore } from './game';
 import { getHightScore, saveHigtScore } from './storage';
@@ -27,7 +27,7 @@ const PLAYER_ID = 'PLAYER_1';
 const CPU_PREFIX = 'CPU_';
 
 export default function App() {
-  const [higtscore, setHigtscore] = useState(getHightScore());
+  const [hightScore, setHigtScore] = useState();
   const [gameStart, setGameStart] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -205,6 +205,10 @@ export default function App() {
   const isResult = !isPlay && !isGameOver && gameStart;
 
   const rateLevel = rivals.length * 2;
+
+  useEffect(() => {
+    setHigtScore(getHightScore());
+  }, []);
 
   return (
     <>
