@@ -196,7 +196,6 @@ export default function App() {
     return (
       <RivalRobot
         key={data.name}
-        name={data.name}
         result={data.result}
         isPlay={isPlay}
         isLastOne={!!(rivals.length === 1)}

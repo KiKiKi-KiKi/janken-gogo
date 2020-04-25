@@ -50,14 +50,13 @@ function RemoveBtn({ onClick }) {
   );
 }
 
-export default function RivalRobot({ name, result, isPlay, isLastOne, onRemove }) {
+export default function RivalRobot({ result, isPlay, isLastOne, onRemove }) {
   const hand = isPlay ? <SpinHands /> : <Hand result={result} />;
   const removeBtn = !isLastOne ? <RemoveBtn onClick={onRemove} /> : null;
   return (
     <div className="rival">
       {removeBtn}
       <div className="rival-result">{hand}</div>
-      <p className="rival-name">{name}</p>
     </div>
   );
 }
