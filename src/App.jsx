@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { HANDS, DEFAULT_GAME, GAME_COST, MAX_RIVAL } from './config';
-import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore } from './game';
+import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore, getRewardMultiplyingRate } from './game';
 import { getHighScore, saveHigtScore } from './storage';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
@@ -204,7 +204,7 @@ export default function App() {
 
   const isResult = !isPlay && !isGameOver && gameStart;
 
-  const rateLevel = rivals.length * 2;
+  const rateLevel = getRewardMultiplyingRate(rivals.length);
 
   useEffect(() => {
     setHigtScore(getHighScore());

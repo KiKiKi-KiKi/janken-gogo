@@ -1,4 +1,4 @@
-import { HANDS, HANDS_ID, MAX_MATCH } from './config';
+import { HANDS, HANDS_ID, MAX_MATCH, REWARD_MULTIPLYING_BASE } from './config';
 
 const isAllSameValue = (arr) => {
   return arr.length === 1;
@@ -93,6 +93,10 @@ export const getResultLabel = (result) => {
   return RESULT_LABELS[result.toString()];
 };
 
+export const getRewardMultiplyingRate = (rivalNum) => {
+  return rivalNum * REWARD_MULTIPLYING_BASE;
+};
+
 export const getAddScore = (res) => (bet) => (rivalsNum) => {
   if (res < 0) {
     return 0;
@@ -102,7 +106,7 @@ export const getAddScore = (res) => (bet) => (rivalsNum) => {
     return bet / 2;
   }
 
-  return bet * 2 * rivalsNum;
+  return bet * getRewardMultiplyingRate(rivalsNum);
 };
 
 export const vaildGameOver = (gameData) => {
