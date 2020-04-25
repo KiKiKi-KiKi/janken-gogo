@@ -32,6 +32,10 @@ export default function App() {
   const [myRoll, setMyRoll] = useState('');
   const [rivals, setRivals] = useState([new Rival(`CPU_${1}`)]);
 
+  const resetRivals = useCallback(() => {
+    return setRivals([new Rival(`CPU_${1}`)]);
+  }, []);
+
   const onPlay = useCallback((betVal = GAME_COST) => {
     setMyRoll('');
     setBetCost(() => {
@@ -49,12 +53,12 @@ export default function App() {
   }, []);
 
   const onGameReset = useCallback(() => {
-    // TODO: reset Rival Num
+    resetRivals();
     setGameStart(true);
     setIsGameOver(false);
     setGame({ ...DEFAULT_GAME });
     onPlay();
-  }, [onPlay]);
+  }, [onPlay, resetRivals]);
 
   const checkGameOver = useCallback(
     (game) => {
