@@ -4,7 +4,7 @@ import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore, ge
 import { getHighScore, saveHigtScore } from './storage';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
-import AddRivalBtn from './components/AddRivalBtn';
+import RivalMeta from './components/RivalMeta';
 import Controller from './components/Controller';
 import Header from './components/Header';
 import GameMeta from './components/GameMeta';
@@ -217,16 +217,12 @@ export default function App() {
         <div className="main-board">
           <div className="rivals-container">
             <div className="rivals">{rivalRobots}</div>
-            <div className="rivals-meta">
-              <AddRivalBtn onClick={onAddRival} isPlay={isPlay} hasMaxRivals={!(rivals.length < MAX_RIVAL)} />
-              <div className="rate-level">
-                win rate:
-                <span className="rate-level-label">
-                  {rateLevel}
-                  <small>x</small>
-                </span>
-              </div>
-            </div>
+            <RivalMeta
+              rateLevel={rateLevel}
+              isPlay={isPlay}
+              onAddRival={onAddRival}
+              hasMaxRivals={!(rivals.length < MAX_RIVAL)}
+            />
           </div>
           {isResult && <Result {...game} />}
           {isResult && <ResultController onPlay={onPlay} {...game} />}
