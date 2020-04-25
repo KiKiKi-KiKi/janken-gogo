@@ -47,8 +47,8 @@ export default function ResultController({ result, addScore, onPlay }) {
     result > 0 ? (
       <WinBuutons onNext={onNext} onBetAll={onBetAll} betCoin={addScore} />
     ) : (
-        <NextButtton onNext={onNext} />
-      );
+      <NextButtton onNext={onNext} />
+    );
 
   return (
     <nav className="result__footer">
