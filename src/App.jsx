@@ -93,7 +93,7 @@ export default function App() {
         return isGameOver;
       });
     },
-    [onPlay, updateHighScore]
+    [updateHighScore]
   );
 
   const updateResult = useCallback(
