@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { HANDS, DEFAULT_GAME, GAME_COST } from './congig';
+import { HANDS, DEFAULT_GAME, GAME_COST, MAX_RIVAL } from './congig';
 import { gameMatch, getResultLabel, getAddScore, vaildGameOver } from './game';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
@@ -23,6 +23,7 @@ const getResultByName = (res) => (name) => {
 };
 
 const PLAYER_ID = 'PLAYER_1';
+const CPU_PREFIX = 'CPU_';
 
 export default function App() {
   const [gameStart, setGameStart] = useState(false);
@@ -137,19 +138,51 @@ export default function App() {
   const onScissors = useCallback(onMatch(HANDS[1]), [onMatch]);
   const onPaper = useCallback(onMatch(HANDS[2]), [onMatch]);
 
-  const onAddRival = () => {
+  const onAddRival = useCallback(() => {
+    if (!isPlay) return;
     setRivals((_rivals) => {
       const rivals = [..._rivals];
-      const newRival = new Rival(`CPU_${rivals.length + 1}`);
-      console.log(newRival);
+      const newRival = new Rival(`${CPU_PREFIX}${rivals.length + 1}`);
       rivals.push(newRival);
-      console.log(rivals);
       return rivals;
     });
-  };
+  }, [isPlay]);
+
+  const addRivalBtn = useMemo(() => {
+    if (rivals.length < MAX_RIVAL) {
+      return (
+        <button className="btn btn-sm" onClick={() => onAddRival()}>
+          ADD Rival
+        </button>
+      );
+    }
+    return null;
+  }, [rivals, onAddRival]);
+
+  const onRemoveRival = useCallback(
+    (key) => () => {
+      if (!isPlay || rivals.length === 1) {
+        return;
+      }
+      const newRivals = [...rivals]
+        .filter((data) => key !== data.name)
+        .map((data, i) => ({ ...data, name: `${CPU_PREFIX}${i + 1}` }));
+      setRivals(newRivals);
+    },
+    [rivals, isPlay]
+  );
 
   const rivalRobots = rivals.map((data) => {
-    return <RivalRobot key={data.name} name={data.name} result={data.result} isPlay={isPlay} />;
+    return (
+      <RivalRobot
+        key={data.name}
+        name={data.name}
+        result={data.result}
+        isPlay={isPlay}
+        isLastOne={!!(rivals.length === 1)}
+        onRemove={onRemoveRival(data.name)}
+      />
+    );
   });
 
   const startCover = useMemo(() => {
@@ -170,9 +203,7 @@ export default function App() {
           <div className="rivals-container">
             <div className="rivals">{rivalRobots}</div>
             {/* TODO: rate up, when add Rival */}
-            <button className="btn btn-sm" onClick={() => onAddRival()}>
-              ADD Rival
-            </button>
+            {addRivalBtn}
           </div>
           {isResult && <Result {...game} />}
           {isResult && <ResultController onPlay={onPlay} {...game} />}
