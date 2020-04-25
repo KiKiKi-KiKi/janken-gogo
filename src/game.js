@@ -93,7 +93,7 @@ export const getResultLabel = (result) => {
   return RESULT_LABELS[result.toString()];
 };
 
-export const getAddScore = (res) => (bet) => {
+export const getAddScore = (res) => (bet) => (rivalsNum) => {
   if (res < 0) {
     return 0;
   }
@@ -102,7 +102,7 @@ export const getAddScore = (res) => (bet) => {
     return bet / 2;
   }
 
-  return bet * 2;
+  return bet * 2 * rivalsNum;
 };
 
 export const vaildGameOver = (gameData) => {

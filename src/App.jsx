@@ -77,9 +77,9 @@ export default function App() {
   );
 
   const updateResult = useCallback(
-    (res, bet) => {
+    (res, bet, rivalsNum) => {
       const resLabel = getResultLabel(res);
-      const addScore = getAddScore(res)(bet);
+      const addScore = getAddScore(res)(bet)(rivalsNum);
 
       setGame(({ score, match, ...data }) => {
         const count = data[resLabel] + 1;
@@ -127,7 +127,7 @@ export default function App() {
 
       setMyRoll(myResult);
       setRivals(updateRivalsData(rivals, rivalsResult));
-      updateResult(result, betCost);
+      updateResult(result, betCost, rivals.length);
 
       onPuseGame();
     },
