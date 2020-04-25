@@ -1,5 +1,5 @@
 import React from 'react';
-import { HANDS } from '../congig';
+import { HANDS } from '../config';
 import { IconPaperLine, IconScissorsLine, IconStoneLine } from './Icons';
 import { ReactComponent as IconRemove } from '../img/icon-itmes.svg';
 

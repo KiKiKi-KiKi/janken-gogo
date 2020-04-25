@@ -1,4 +1,4 @@
-import { DEFAULT_SAVE_SCORE } from './congig';
+import { DEFAULT_SAVE_SCORE } from './config';
 const STRAGE_KEY = 'janken_hi';
 
 export function getHighScore() {

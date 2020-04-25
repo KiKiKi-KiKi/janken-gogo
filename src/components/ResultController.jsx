@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { GAME_COST } from '../congig';
+import { GAME_COST } from '../config';
 import PlayBtn from './PlayBtn';
 import { ReactComponent as IconCoins } from '../img/icon-coins.svg';
 

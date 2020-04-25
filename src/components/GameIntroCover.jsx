@@ -1,5 +1,5 @@
 import React from 'react';
-import { GAME_COST, MAX_MATCH } from '../congig';
+import { GAME_COST, MAX_MATCH } from '../config';
 import PlayBtn from './PlayBtn';
 
 export default function GameIntroCover({ onPlay }) {

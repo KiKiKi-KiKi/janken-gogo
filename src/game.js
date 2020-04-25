@@ -1,4 +1,4 @@
-import { HANDS, HANDS_ID, MAX_MATCH } from './congig';
+import { HANDS, HANDS_ID, MAX_MATCH } from './config';
 
 const isAllSameValue = (arr) => {
   return arr.length === 1;

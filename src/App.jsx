@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import { HANDS, DEFAULT_GAME, GAME_COST, MAX_RIVAL } from './congig';
+import { HANDS, DEFAULT_GAME, GAME_COST, MAX_RIVAL } from './config';
 import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore } from './game';
 import { getHighScore, saveHigtScore } from './storage';
 import Rival from './Rival';

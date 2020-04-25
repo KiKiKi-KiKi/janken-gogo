@@ -1,4 +1,4 @@
-import { HANDS } from './congig';
+import { HANDS } from './config';
 
 const DEFAULT_RATE = {
   [HANDS[0]]: 33,
