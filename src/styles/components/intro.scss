@@ -1,0 +1,45 @@
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, .9);
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.intro-heading {
+  text-align: center;
+  position: relative;
+  margin: 1rem 0 0;
+}
+
+.intro-start-btn {
+  margin-bottom: 2rem;
+}
+
+.intro-description {
+  color: #ffc107;
+  font-family: monospace;
+  text-transform: uppercase;
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 1rem;
+  padding: 1.25em;
+  background-color: $theme-dark;
+  border-radius: .2rem;
+}
+
+.intro-description__list {
+  list-style-type: disc;
+  margin: 0;
+  padding: 0 0 0 1em;
+
+  li {
+    margin-bottom: .5em;
+  }
+}
