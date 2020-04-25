@@ -40,16 +40,47 @@
   font-style: normal;
   text-transform: uppercase;
   letter-spacing: .2rem;
+  margin: 1rem 0 -1rem;
 }
 
 .final-score {
   color: #ffc107;
   font-size: 2rem;
   margin: 1rem 0 0;
+  small {
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    font-style: normal;
+  }
 }
 
 .game-result {
   .game-meta--value {
     color: #fff;
+  }
+}
+
+.final-match-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+
+  .result__title,
+  .result__score {
+    color: #fff;
+    font-size: 1rem;
+    margin-left: .5rem;
+  }
+
+  .result__title {
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    &.win {
+      color: #28a745 + 20;
+    }
+    &.lose {
+      color: #dc3545 + 20;
+    }
   }
 }
