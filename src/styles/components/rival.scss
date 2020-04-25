@@ -20,21 +20,59 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.rival-hand {
   color: #28a745 + 50;
   font-size: 4rem;
   padding: 1rem;
   border-radius: 50%;
   background: $font-base-color;
-  width: 4rem;
-  height: 4rem;
-  box-sizing: initial;
+  width: 100px;
+  height: 100px;
   .svg-inline--fa {
     display: block;
     line-height: 1;
+    margin: 0 auto;
   }
 }
 
 .rival-name {
   text-align: center;
   margin: .5rem 0 0;
+}
+
+.spin {
+  position: relative;
+  border-radius: 50%;
+  background: $font-base-color;
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes spinAnime {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.spin-hand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: spinAnime .6s linear 0s infinite;
+
+  &:nth-child(2) {
+    animation-delay: .2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: .4s;
+  }
 }

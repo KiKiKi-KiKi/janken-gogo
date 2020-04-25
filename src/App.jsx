@@ -149,7 +149,7 @@ export default function App() {
   };
 
   const rivalRobots = rivals.map((data) => {
-    return <RivalRobot key={data.name} name={data.name} result={data.result} />;
+    return <RivalRobot key={data.name} name={data.name} result={data.result} isPlay={isPlay} />;
   });
 
   const startCover = useMemo(() => {
@@ -181,9 +181,9 @@ export default function App() {
         <button className="btn" onClick={() => onAddRival()}>
           ADD Rival
         </button>
+        {isResult && <ResultController onPlay={onPlay} {...game} />}
         {startCover}
       </main>
-      {isResult && <ResultController onPlay={onPlay} {...game} />}
       <footer className="footer">
         <div className="game-meta">
           <GameMeta {...game} />
