@@ -1,4 +1,4 @@
-import { HANDS, HANDS_ID, MAX_MATCH, REWARD_MULTIPLYING_BASE } from './config';
+import { HANDS, HANDS_ID, MAX_MATCH, GAME_COST, REWARD_MULTIPLYING_BASE } from './config';
 
 const isAllSameValue = (arr) => {
   return arr.length === 1;
@@ -97,13 +97,17 @@ export const getRewardMultiplyingRate = (rivalNum) => {
   return rivalNum * REWARD_MULTIPLYING_BASE;
 };
 
+const getDrawRefund = (base) => (coefficient) => {
+  return base / 2 - (coefficient - 1);
+};
+
 export const getAddScore = (res) => (bet) => (rivalsNum) => {
   if (res < 0) {
     return 0;
   }
 
   if (res === 0) {
-    return bet / 2;
+    return getDrawRefund(GAME_COST)(rivalsNum);
   }
 
   return bet * getRewardMultiplyingRate(rivalsNum);

@@ -15,7 +15,7 @@ export default function GameIntroCover({ onPlay }) {
           <li>can more bet next game, if you win.</li>
           <li>Win: get beted coins 2x!</li>
           <li>Lose: lost bet coins.</li>
-          <li>Draw: lost half of beted coins.</li>
+          <li>Draw: refund half of 1 game cost - (user counts - 1)</li>
         </ul>
       </div>
       <PlayBtn className="intro-start-btn" onPlay={onPlay}>
