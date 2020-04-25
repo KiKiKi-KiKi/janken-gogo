@@ -4,6 +4,7 @@ import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore } f
 import { getHighScore, saveHigtScore } from './storage';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
+import AddRivalBtn from './components/AddRivalBtn';
 import Controller from './components/Controller';
 import Header from './components/Header';
 import GameMeta from './components/GameMeta';
@@ -159,7 +160,7 @@ export default function App() {
   const onPaper = useCallback(onMatch(HANDS[2]), [onMatch]);
 
   const onAddRival = useCallback(() => {
-    if (!isPlay) return;
+    if (isPlay) return;
     setRivals((_rivals) => {
       const rivals = [..._rivals];
       const newRival = new Rival(`${CPU_PREFIX}${rivals.length + 1}`);
@@ -168,20 +169,9 @@ export default function App() {
     });
   }, [isPlay]);
 
-  const addRivalBtn = useMemo(() => {
-    if (rivals.length < MAX_RIVAL) {
-      return (
-        <button className="btn btn-sm" onClick={() => onAddRival()}>
-          ADD Rival
-        </button>
-      );
-    }
-    return null;
-  }, [rivals, onAddRival]);
-
   const onRemoveRival = useCallback(
     (key) => () => {
-      if (!isPlay || rivals.length === 1) {
+      if (isPlay || rivals.length === 1) {
         return;
       }
       const newRivals = [...rivals]
@@ -228,7 +218,7 @@ export default function App() {
           <div className="rivals-container">
             <div className="rivals">{rivalRobots}</div>
             <div className="rivals-meta">
-              {addRivalBtn}
+              <AddRivalBtn onClick={onAddRival} isPlay={isPlay} hasMaxRivals={!(rivals.length < MAX_RIVAL)} />
               <div className="rate-level">
                 win rate:
                 <span className="rate-level-label">
