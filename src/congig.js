@@ -18,3 +18,9 @@ export const DEFAULT_GAME = Object.freeze({
   lose: 0,
   draw: 0,
 });
+
+export const DEFAULT_SAVE_SCORE = Object.freeze({
+  ...DEFAULT_GAME,
+  score: null,
+  isHightScore: false,
+})
