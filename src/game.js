@@ -113,3 +113,23 @@ export const vaildGameOver = (gameData) => {
 
   return false;
 };
+
+export const checkHiScore = ({ score, win, match }) => {
+  const hiScore = score;
+  const hiWin = win;
+  const hiMatch = match;
+  return ({ score, win, match }) => {
+    if (score > hiScore) {
+      return true;
+    }
+    if (score === hiScore) {
+      if (win > hiWin) {
+        return true;
+      }
+      if (win === hiWin && match > hiMatch) {
+        return true;
+      }
+    }
+    return false;
+  }
+}

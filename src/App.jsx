@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { HANDS, DEFAULT_GAME, GAME_COST, MAX_RIVAL } from './congig';
-import { gameMatch, getResultLabel, getAddScore, vaildGameOver } from './game';
+import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore } from './game';
+import { getHightScore, saveHigtScore } from './storage';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
@@ -26,6 +27,7 @@ const PLAYER_ID = 'PLAYER_1';
 const CPU_PREFIX = 'CPU_';
 
 export default function App() {
+  const [higtscore, setHigtscore] = useState(getHightScore());
   const [gameStart, setGameStart] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -69,11 +71,18 @@ export default function App() {
         if (isGameOver) {
           setBetCost(0);
           onPlay(false);
+          if (!higtscore || checkHiScore(higtscore)(game)) {
+            setHigtscore(() => {
+              const { addScore, result, ...hightScore } = game;
+              saveHigtScore(hightScore);
+              return hightScore;
+            });
+          }
         }
         return isGameOver;
       });
     },
-    [onPlay]
+    [onPlay, higtscore]
   );
 
   const updateResult = useCallback(
