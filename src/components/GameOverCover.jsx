@@ -12,7 +12,7 @@ export default function GameOverCover({ onPlay, score, match, win, lose, draw })
           <IconCoins /> {score}
         </p>
       </div>
-      <div className="result">
+      <div className="game-result">
         <div className="game-meta__item">
           <span className="game-meta--label">Total Game:</span>
           <label className="game-meta--value match">{match}</label>

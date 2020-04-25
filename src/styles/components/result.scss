@@ -1,0 +1,70 @@
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-style: italic;
+  font-weight: 800;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.result__title {
+  color: #5a6268;
+  font-family: $sanserif;
+  font-size: 2.6rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  margin: 0;
+  &.win {
+    color: #28a745;
+  }
+  &.lose {
+    color: #dc3545;
+  }
+}
+
+.result__score {
+  color: #ffc107;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.result__footer {
+  padding: .5rem 0 2rem;
+  width: 100%;
+}
+
+.result__action-label {
+  color: #5a6268;
+  font-family: $titleFont;
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-align: center;
+  margin: 0 0 .5rem;
+}
+
+.result__actions {
+  .half {
+    margin-top: 1rem;
+    width: 100%;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+@media(min-width: breakpoint(sm)) {
+  .result__actions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 0 -1em;
+
+    .half {
+      margin: 0;
+      padding: 0 1em;
+      width: 50%;
+    }
+  }
+}

@@ -40,57 +40,8 @@
   margin: 1rem 0 0;
 }
 
-.result {
+.game-result {
   .game-meta--value {
     color: #fff;
-  }
-}
-
-.game-next-cover {
-  color: #5a6268;
-  background-color: rgba(255, 255, 255, .9);
-
-  .board-cover__title {
-    color: #5a6268;
-    &.win {
-      color: #28a745;
-    }
-    &.lose {
-      color: #dc3545;
-    }
-  }
-}
-
-.over-action-label {
-  color: #5a6268;
-  font-family: $titleFont;
-  font-weight: 700;
-  font-size: 1.4rem;
-  text-align: center;
-  margin: 0 0 .5rem;
-}
-
-.cover-actions {
-  .half {
-    margin-top: 1rem;
-    width: 100%;
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-}
-
-@media(min-width: breakpoint(sm)) {
-  .cover-actions {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin: 0 -1em;
-
-    .half {
-      margin: 0;
-      padding: 0 1em;
-      width: 50%;
-    }
   }
 }

@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
+import { GAME_COST } from '../congig';
 import PlayBtn from './PlayBtn';
-import { getResultLabel } from '../game';
 import { ReactComponent as IconCoins } from '../img/icon-coins.svg';
 
 function NextButtton({ onNext }) {
   return (
     <PlayBtn className="next-btn" onPlay={onNext}>
-      next (bet <IconCoins /> 10)
+      next (bet <IconCoins /> {GAME_COST})
     </PlayBtn>
   );
 }
@@ -14,10 +14,10 @@ function NextButtton({ onNext }) {
 function WinBuutons({ onNext, onBetAll, betCoin }) {
   return (
     <>
-      <p className="over-action-label">
+      <p className="result__action-label">
         BET <IconCoins /> {betCoin}?
       </p>
-      <div className="cover-actions">
+      <div className="result__actions">
         <div className="half">
           <PlayBtn className="get-reward-btn" onPlay={onNext}>
             Get rewards.
@@ -33,10 +33,7 @@ function WinBuutons({ onNext, onBetAll, betCoin }) {
   );
 }
 
-export default function GameNextCover({ result, addScore, onPlay }) {
-  const resLabel = getResultLabel(result);
-  const addCoin = addScore > 0 ? `+ ${addScore}` : addScore;
-
+export default function ResultController({ result, addScore, onPlay }) {
   const onNext = useCallback(() => {
     return onPlay();
   }, [onPlay]);
@@ -54,16 +51,8 @@ export default function GameNextCover({ result, addScore, onPlay }) {
       );
 
   return (
-    <div className="board-cover game-next-cover">
-      <div className="board-cover__label">
-        <b className={`board-cover__title ${resLabel}`}>{resLabel}</b>
-        <p className="final-score">
-          <IconCoins /> {addCoin}
-        </p>
-      </div>
-      <nav className="bord-cover__bottom">
-        <NextActions />
-      </nav>
-    </div>
+    <nav className="result__footer">
+      <NextActions />
+    </nav>
   );
 }

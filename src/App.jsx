@@ -8,7 +8,8 @@ import Header from './components/Header';
 import GameMeta from './components/GameMeta';
 import GameIntroCover from './components/GameIntroCover';
 import GameOverCover from './components/GameOverCover';
-import GameNextCover from './components/GameNextCover';
+import Result from './components/Result';
+import ResultController from './components/ResultController';
 
 function getRivalsValues(rivals) {
   return rivals.map((raival) => ({
@@ -159,19 +160,14 @@ export default function App() {
     return isGameOver ? <GameOverCover onPlay={onGameReset} {...game} /> : null;
   }, [isGameOver, onGameReset, game]);
 
-  const nextCover = useMemo(() => {
-    if (!isPlay && !isGameOver && gameStart) {
-      return <GameNextCover onPlay={onPlay} {...game} />;
-    } else {
-      return null;
-    }
-  }, [isPlay, isGameOver, gameStart, game, onPlay]);
+  const isResult = !isPlay && !isGameOver && gameStart;
 
   return (
     <>
       <Header bet={betCost} {...game} />
       <main className="main">
         <div className="rivals">{rivalRobots}</div>
+        {isResult && <Result {...game} />}
         <div className="main-actions">
           <Controller
             isPlay={gameStart}
@@ -186,8 +182,8 @@ export default function App() {
           ADD Rival
         </button>
         {startCover}
-        {nextCover}
       </main>
+      {isResult && <ResultController onPlay={onPlay} {...game} />}
       <footer className="footer">
         <div className="game-meta">
           <GameMeta {...game} />
