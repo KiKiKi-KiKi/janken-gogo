@@ -46,7 +46,7 @@ const updateRate = (rate) => (pickKey) => {
   const upRate = rate[upKey] + RATE_CHANGE_VALUE;
 
   if (downRate < RESET_LIMIT) {
-    console.warn(`Reset rate ${pickKey}!`);
+    // console.warn(`Reset rate ${pickKey}!`);
     return { ...rate, [upKey]: upRate, [pickKey]: DEFAULT_RATE[pickKey] };
   }
 
@@ -63,11 +63,11 @@ export default function Rival(_name) {
 
   const getRoll = () => {
     const rate = getRate();
-    console.log(name, rate);
+    // console.log(name, rate);
     const total = getTotal(rate);
     const pick = Math.floor(Math.random() * total);
     const pickKey = getPickKey(rate)(pick);
-    console.log(name, total, pick, pickKey);
+    // console.log(name, total, pick, pickKey);
 
     // Change rate
     setRate(updateRate(rate)(pickKey));

@@ -11,14 +11,14 @@ const isArrayLengthMax = (max) => (values) => {
 // All same value || Has All Values => DRAW
 export const isDraw = (data) => (max) => {
   if (isAllSameValue(data)) {
-    console.log('Draw! All same value.');
+    // console.log('Draw! All same value.');
     return true;
   }
 
   const hasAllHands = isArrayLengthMax(max);
 
   if (hasAllHands(data)) {
-    console.log('Draw! Has All Hands.');
+    // console.log('Draw! Has All Hands.');
     return true;
   }
 
@@ -47,7 +47,7 @@ const getWinnersList = ([first, second]) => {
 
 export const isWin = (data) => (playerName) => {
   const winner = getWinnersList(data);
-  console.log('Winner:', winner);
+  // console.log('Winner:', winner);
   return winner.includes(playerName);
 };
 

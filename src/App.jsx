@@ -72,7 +72,7 @@ export default function App() {
       if (checkHiScore(highScore)(game)) {
         setHigtScore(() => {
           const { addScore, result, ...newHighScore } = game; // eslint-disable-line
-          console.log('Hi Score!', newHighScore);
+          // console.log('Hi Score!', newHighScore);
           saveHigtScore(newHighScore);
           return { ...newHighScore, isHighScore: true };
         });
@@ -140,10 +140,10 @@ export default function App() {
 
       const rivalsResult = getRivalsValues(rivals);
       const resultData = [player, ...rivalsResult];
-      console.log(resultData);
+      // console.log(resultData);
 
       const result = gameMatch(resultData, player);
-      console.log('Result >', result);
+      // console.log('Result >', result);
 
       setMyRoll(myResult);
       setRivals(updateRivalsData(rivals, rivalsResult));
