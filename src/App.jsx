@@ -40,7 +40,7 @@ export default function App() {
     setGame(({ score, ...gameData }) => {
       return { ...gameData, score: score - betVal };
     });
-    setIsPlay((_val) => !_val);
+    setIsPlay(true);
   }, []);
 
   const onPuseGame = useCallback(() => {
@@ -51,7 +51,6 @@ export default function App() {
   const onGameReset = useCallback(() => {
     // TODO: reset Rival Num
     setGameStart(true);
-    setIsPlay(false);
     setIsGameOver(false);
     setGame({ ...DEFAULT_GAME });
     onPlay();
