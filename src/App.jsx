@@ -62,8 +62,8 @@ export default function App() {
     setGameStart(true);
     setIsGameOver(false);
     setGame({ ...DEFAULT_GAME });
-    setHigtScore((highScore) => {
-      return { ...highScore, isHighScore: false };
+    setHigtScore((_highScore) => {
+      return { ..._highScore, ...getHighScore(), isHighScore: false };
     });
     onPlay();
   }, [onPlay, resetRivals]);
