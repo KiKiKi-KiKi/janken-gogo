@@ -1,7 +1,7 @@
 import { DEFAULT_SAVE_SCORE } from './congig';
 const STRAGE_KEY = 'janken_hi';
 
-export function getHightScore() {
+export function getHighScore() {
   const item = localStorage.getItem(STRAGE_KEY);
   if (!item) {
     return { ...DEFAULT_SAVE_SCORE };

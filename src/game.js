@@ -131,5 +131,5 @@ export const checkHiScore = ({ score, win, match }) => {
       }
     }
     return false;
-  }
-}
+  };
+};

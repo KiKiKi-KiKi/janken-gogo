@@ -3,19 +3,19 @@ import PlayBtn from './PlayBtn';
 import GameMeta from './GameMeta';
 import { ReactComponent as IconCoins } from '../img/icon-coins.svg';
 
-function hightScore(isHightScore) {
-  if (!isHightScore) {
+function highScore(isHighScore) {
+  if (!isHighScore) {
     return null;
   }
   return <span className="result-hight-score">Hight Score</span>;
 }
 
-export default function GameOverCover({ onPlay, score, match, win, lose, draw, isHightScore }) {
+export default function GameOverCover({ onPlay, score, match, win, lose, draw, isHighScore }) {
   return (
     <div className="board-cover game-over">
       <div className="board-cover__label">
         <b className="board-cover__title">GAME OVER!</b>
-        {hightScore(isHightScore)}
+        {highScore(isHighScore)}
         <p className="final-score">
           <IconCoins /> {score}
         </p>

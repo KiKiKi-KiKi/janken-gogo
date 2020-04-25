@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { HANDS, DEFAULT_GAME, GAME_COST, MAX_RIVAL } from './congig';
 import { gameMatch, getResultLabel, getAddScore, vaildGameOver, checkHiScore } from './game';
-import { getHightScore, saveHigtScore } from './storage';
+import { getHighScore, saveHigtScore } from './storage';
 import Rival from './Rival';
 import RivalRobot from './components/RivalRobot';
 import Controller from './components/Controller';
@@ -27,7 +27,7 @@ const PLAYER_ID = 'PLAYER_1';
 const CPU_PREFIX = 'CPU_';
 
 export default function App() {
-  const [hightScore, setHigtScore] = useState();
+  const [highScore, setHigtScore] = useState();
   const [gameStart, setGameStart] = useState(false);
   const [isPlay, setIsPlay] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -61,24 +61,24 @@ export default function App() {
     setGameStart(true);
     setIsGameOver(false);
     setGame({ ...DEFAULT_GAME });
-    setHigtScore((hightScore) => {
-      return { ...hightScore, isHightScore: false };
+    setHigtScore((highScore) => {
+      return { ...highScore, isHighScore: false };
     });
     onPlay();
   }, [onPlay, resetRivals]);
 
-  const updateHightScore = useCallback(
+  const updateHighScore = useCallback(
     (game) => {
-      if (checkHiScore(hightScore)(game)) {
+      if (checkHiScore(highScore)(game)) {
         setHigtScore(() => {
-          const { addScore, result, ...newHightScore } = game; // eslint-disable-line
-          console.log('Hi Score!', newHightScore);
-          saveHigtScore(newHightScore);
-          return { ...newHightScore, isHightScore: true };
+          const { addScore, result, ...newHighScore } = game; // eslint-disable-line
+          console.log('Hi Score!', newHighScore);
+          saveHigtScore(newHighScore);
+          return { ...newHighScore, isHighScore: true };
         });
       }
     },
-    [hightScore]
+    [highScore]
   );
 
   const checkGameOver = useCallback(
@@ -88,12 +88,12 @@ export default function App() {
         if (isGameOver) {
           setBetCost(0);
           onPlay(false);
-          updateHightScore(game);
+          updateHighScore(game);
         }
         return isGameOver;
       });
     },
-    [onPlay, updateHightScore]
+    [onPlay, updateHighScore]
   );
 
   const updateResult = useCallback(
@@ -210,20 +210,20 @@ export default function App() {
   }, [gameStart, onGameReset]);
 
   const gameOver = useMemo(() => {
-    return isGameOver ? <GameOverCover onPlay={onGameReset} {...game} isHightScore={hightScore.isHightScore} /> : null;
-  }, [isGameOver, onGameReset, game, hightScore]);
+    return isGameOver ? <GameOverCover onPlay={onGameReset} {...game} isHighScore={highScore.isHighScore} /> : null;
+  }, [isGameOver, onGameReset, game, highScore]);
 
   const isResult = !isPlay && !isGameOver && gameStart;
 
   const rateLevel = rivals.length * 2;
 
   useEffect(() => {
-    setHigtScore(getHightScore());
+    setHigtScore(getHighScore());
   }, []);
 
   return (
     <>
-      <Header bet={betCost} {...game} hightScore={hightScore} />
+      <Header bet={betCost} {...game} highScore={highScore} />
       <main className="main">
         <div className="main-board">
           <div className="rivals-container">

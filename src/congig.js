@@ -22,5 +22,5 @@ export const DEFAULT_GAME = Object.freeze({
 export const DEFAULT_SAVE_SCORE = Object.freeze({
   ...DEFAULT_GAME,
   score: null,
-  isHightScore: false,
-})
+  isHighScore: false,
+});

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ReactComponent as IconCoins } from '../img/icon-coins.svg';
 
-const HightScoreLabel = (scoreObg) => {
+const HighScoreLabel = (scoreObg) => {
   if (!scoreObg || !scoreObg.score) {
     return null;
   }
@@ -13,8 +13,8 @@ const HightScoreLabel = (scoreObg) => {
   );
 };
 
-export default function Header({ match, score, bet, hightScore }) {
-  const hiscoreLabel = useMemo(() => HightScoreLabel(hightScore), [hightScore]);
+export default function Header({ match, score, bet, highScore }) {
+  const hiscoreLabel = useMemo(() => HighScoreLabel(highScore), [highScore]);
 
   return (
     <header className="game-score">
