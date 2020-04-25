@@ -195,6 +195,8 @@ export default function App() {
 
   const isResult = !isPlay && !isGameOver && gameStart;
 
+  const rateLevel = rivals.length * 2;
+
   return (
     <>
       <Header bet={betCost} {...game} />
@@ -202,8 +204,16 @@ export default function App() {
         <div className="main-board">
           <div className="rivals-container">
             <div className="rivals">{rivalRobots}</div>
-            {/* TODO: rate up, when add Rival */}
-            {addRivalBtn}
+            <div className="rivals-meta">
+              {addRivalBtn}
+              <div className="rate-level">
+                win rate:
+                <span className="rate-level-label">
+                  {rateLevel}
+                  <small>x</small>
+                </span>
+              </div>
+            </div>
           </div>
           {isResult && <Result {...game} />}
           {isResult && <ResultController onPlay={onPlay} {...game} />}
