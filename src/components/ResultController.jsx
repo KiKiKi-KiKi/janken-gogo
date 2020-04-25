@@ -39,7 +39,6 @@ export default function ResultController({ result, addScore, onPlay }) {
   }, [onPlay]);
 
   const onBetAll = useCallback(() => {
-    console.log('onBetAll');
     return onPlay(addScore);
   }, [onPlay, addScore]);
 

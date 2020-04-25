@@ -74,7 +74,7 @@ const mapPlayersToHandPattern = (ids) => (data) => {
 // -1: lose
 export const gameMatch = (data, player) => {
   const resData = mapPlayersToHandPattern(HANDS_ID)(data);
-  console.log(resData);
+  // console.log(resData);
 
   if (isDraw(resData)(HANDS.length)) {
     return 0;
