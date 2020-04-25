@@ -61,8 +61,25 @@ export default function App() {
     setGameStart(true);
     setIsGameOver(false);
     setGame({ ...DEFAULT_GAME });
+    setHigtScore((hightScore) => {
+      return { ...hightScore, isHightScore: false };
+    });
     onPlay();
   }, [onPlay, resetRivals]);
+
+  const updateHightScore = useCallback(
+    (game) => {
+      if (checkHiScore(hightScore)(game)) {
+        setHigtScore(() => {
+          const { addScore, result, ...newHightScore } = game; // eslint-disable-line
+          console.log('Hi Score!', newHightScore);
+          saveHigtScore(newHightScore);
+          return { ...newHightScore, isHightScore: true };
+        });
+      }
+    },
+    [hightScore]
+  );
 
   const checkGameOver = useCallback(
     (game) => {
@@ -71,18 +88,12 @@ export default function App() {
         if (isGameOver) {
           setBetCost(0);
           onPlay(false);
-          if (!higtscore || checkHiScore(higtscore)(game)) {
-            setHigtscore(() => {
-              const { addScore, result, ...hightScore } = game;
-              saveHigtScore(hightScore);
-              return hightScore;
-            });
-          }
+          updateHightScore(game);
         }
         return isGameOver;
       });
     },
-    [onPlay, higtscore]
+    [onPlay, updateHightScore]
   );
 
   const updateResult = useCallback(
@@ -199,8 +210,8 @@ export default function App() {
   }, [gameStart, onGameReset]);
 
   const gameOver = useMemo(() => {
-    return isGameOver ? <GameOverCover onPlay={onGameReset} {...game} /> : null;
-  }, [isGameOver, onGameReset, game]);
+    return isGameOver ? <GameOverCover onPlay={onGameReset} {...game} isHightScore={hightScore.isHightScore} /> : null;
+  }, [isGameOver, onGameReset, game, hightScore]);
 
   const isResult = !isPlay && !isGameOver && gameStart;
 
@@ -212,7 +223,7 @@ export default function App() {
 
   return (
     <>
-      <Header bet={betCost} {...game} />
+      <Header bet={betCost} {...game} hightScore={hightScore} />
       <main className="main">
         <div className="main-board">
           <div className="rivals-container">

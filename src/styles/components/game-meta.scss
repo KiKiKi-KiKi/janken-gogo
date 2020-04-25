@@ -48,10 +48,15 @@
 @media (max-width: breakpoint(sm)) {
   .game-score {
     .game-meta__item {
-      &:first-child {
+      &:first-child,
+      &:nth-child(2) {
         flex-grow: 1;
         flex-shrink: 1;
-        width: 100%;
+        width: 60%;
+      }
+      &:first-child {
+        padding-right: 1.5rem;
+        width: 40%;
       }
     }
   }
