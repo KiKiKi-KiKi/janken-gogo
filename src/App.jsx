@@ -87,7 +87,7 @@ export default function App() {
         const isGameOver = vaildGameOver(game);
         if (isGameOver) {
           setBetCost(0);
-          onPlay(false);
+          setIsPlay(false);
           updateHighScore(game);
         }
         return isGameOver;
