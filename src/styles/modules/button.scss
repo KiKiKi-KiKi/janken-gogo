@@ -25,6 +25,11 @@
   @include btn-setting(default);
 }
 
+.btn-sm {
+  font-size: $small;
+  padding: .2rem .5rem;
+}
+
 .play-btn {
   @include btn-setting(success);
   display: block;
@@ -44,7 +49,7 @@
 }
 
 .next-btn {
-  @include btn-setting(default);
+  @include btn-setting(info);
 }
 
 .get-reward-btn {

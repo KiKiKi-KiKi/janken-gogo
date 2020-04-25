@@ -166,22 +166,26 @@ export default function App() {
     <>
       <Header bet={betCost} {...game} />
       <main className="main">
-        <div className="rivals">{rivalRobots}</div>
-        {isResult && <Result {...game} />}
-        <div className="main-actions">
-          <Controller
-            isPlay={gameStart}
-            current={myRoll.toLowerCase()}
-            onStone={onStone}
-            onScissors={onScissors}
-            onPaper={onPaper}
-          />
+        <div className="main-board">
+          <div className="rivals-container">
+            <div className="rivals">{rivalRobots}</div>
+            {/* TODO: rate up, when add Rival */}
+            <button className="btn btn-sm" onClick={() => onAddRival()}>
+              ADD Rival
+            </button>
+          </div>
+          {isResult && <Result {...game} />}
+          {isResult && <ResultController onPlay={onPlay} {...game} />}
+          <div className="main-actions">
+            <Controller
+              isPlay={gameStart}
+              current={myRoll.toLowerCase()}
+              onStone={onStone}
+              onScissors={onScissors}
+              onPaper={onPaper}
+            />
+          </div>
         </div>
-        {/* TODO: rate up, when add Rival */}
-        <button className="btn" onClick={() => onAddRival()}>
-          ADD Rival
-        </button>
-        {isResult && <ResultController onPlay={onPlay} {...game} />}
         {startCover}
       </main>
       <footer className="footer">

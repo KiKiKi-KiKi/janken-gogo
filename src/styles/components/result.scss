@@ -5,7 +5,8 @@
   font-style: italic;
   font-weight: 800;
   text-align: center;
-  padding: 1rem 0;
+  margin-top: -1rem;
+  padding: 0 0 1rem;
 }
 
 .result__title {
@@ -26,7 +27,7 @@
 
 .result__score {
   color: #ffc107;
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin: 0;
 }
 
@@ -45,26 +46,27 @@
 }
 
 .result__actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 -1em;
+
   .half {
-    margin-top: 1rem;
-    width: 100%;
-    &:first-child {
-      margin-top: 0;
-    }
+    margin: 0;
+    padding: 0 1em;
+    width: 50%;
   }
 }
 
-@media(min-width: breakpoint(sm)) {
+@media(max-width: breakpoint(sm)) {
   .result__actions {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin: 0 -1em;
-
+    margin: 0 -.5em;
     .half {
-      margin: 0;
-      padding: 0 1em;
-      width: 50%;
+      padding: 0 .5em;
+    }
+    .btn {
+      font-size: 83%;
+      padding: .75rem 0;
     }
   }
 }

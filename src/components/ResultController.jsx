@@ -25,7 +25,7 @@ function WinBuutons({ onNext, onBetAll, betCoin }) {
         </div>
         <div className="half">
           <PlayBtn className="bet-all-btn" onPlay={onBetAll}>
-            Bet all rewards
+            Bet all!
           </PlayBtn>
         </div>
       </div>

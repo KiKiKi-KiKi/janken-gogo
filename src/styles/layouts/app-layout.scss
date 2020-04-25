@@ -8,16 +8,20 @@
 .main {
   position: relative;
   padding: 1rem 1rem 2rem;
-  min-height: 80vh;
 }
 
 .footer {
   border-top: 1px solid #eee;
 }
 
+.main-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 65vh;
+}
+
 .main-actions {
-  position: absolute;
-  left: 0;
   bottom: 2rem;
   width: 100%;
 }
