@@ -2,7 +2,7 @@
   "name": "jabken_gogo",
   "version": "1.0.0",
   "main": "src/index.js",
-  "repository": "git@github.com:KiKiKi-KiKi/gs-task01-js.git",
+  "repository": "git@github.com:KiKiKi-KiKi/janken-gogo.git",
   "author": "KiKiKi <@kikiki_kiki>",
   "license": "MIT",
   "scripts": {
